@@ -1,1 +1,1 @@
-from configfileparser import *
+from .configfileparser import *
