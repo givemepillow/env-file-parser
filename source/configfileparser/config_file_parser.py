@@ -1,5 +1,5 @@
 import sys
-from type_checker import is_int
+from .type_checker import is_int
 
 __all__ = ['get_config_var']
 
