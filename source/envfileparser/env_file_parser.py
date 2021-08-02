@@ -29,7 +29,7 @@ def get_env(const_name, file_path=".env"):
         config_var = env_consts[const_name]
     except KeyError:
         print(f"dotenv: The constant you specified is not contained in the {file_path}.")
-        #sys.exit(1)
+        sys.exit(1)
     return config_var
 
 
