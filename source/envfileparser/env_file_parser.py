@@ -1,10 +1,10 @@
 import sys
 from .type_checker import is_int
 
-__all__ = ['get_config_var']
+__all__ = ['get_env']
 
 
-def get_config_var(const_name, path=".env"):
+def get_env(const_name, path=".env"):
     try:
         with open(path, 'r') as env_file:
             env_file_lines = env_file.readlines()
