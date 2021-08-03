@@ -12,7 +12,7 @@ def get_env(const_name, file_path=".env"):
         with open(file_path, 'r') as env_file:
             env_file_lines = env_file.readlines()
     except FileNotFoundError:
-        print(f"dotenv: The {file_path} not found.")
+        print(f"envfileparser: The {file_path} not found.")
         sys.exit(1)
 
     env_consts = {}
@@ -29,7 +29,7 @@ def get_env(const_name, file_path=".env"):
     try:
         config_var = env_consts[const_name]
     except KeyError:
-        print(f"dotenv: The constant you specified is not contained in the {file_path}.")
+        print(f"envfileparser: The constant you specified is not contained in the {file_path}.")
         sys.exit(1)
     return config_var
 
