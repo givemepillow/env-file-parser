@@ -1,26 +1,16 @@
 import os
+import unittest
 
 from source import get_env
 
+class TestGetEnv(unittest.TestCase):
+    def test_string_vars(self):
+        self.assertEqual(get_env('CONST'), 'abc-123')
+        self.assertEqual(get_env('CONST', file_path='.env.conf'), 'adadsaskdjald')
 
-def test_one():
-    assert get_env('CONST', file_path=".env") == 'abc-123'
-    print("Test one passed.")
-
-
-def test_two():
-    assert get_env('NUMBER') == 198
-    print("Test two passed.")
-
-
-def test_three():
-    assert get_env('NUMBER', file_path='.env.conf') == -78
-    print("Test three passed.")
-
-
-def test_four():
-    assert get_env('CONST', file_path='.env.conf') == 'adadsaskdjald'
-    print("Test four passed.")
+    def test_numbers_vars(self):
+        self.assertEqual(get_env('NUMBER'), 198)
+        self.assertEqual(get_env('NUMBER', file_path='.env.conf'), -78)
 
 
 if __name__ == '__main__':
@@ -29,10 +19,6 @@ if __name__ == '__main__':
 
     with open('.env.conf', "w") as file:
         file.writelines(["CONST=adadsaskdjald\n", "NUMBER=-78"])
-
-    test_one()
-    test_two()
-    test_three()
-    test_four()
+    unittest.main()
     os.remove('.env.conf')
     os.remove('.env')
