@@ -5,15 +5,14 @@ from .type_checker import is_int
 __all__ = ['get_env']
 
 
-def get_env(const_name, file_path=".env"):
+def get_env(const_name: str, file_path=".env"):
     try:
         if not os.path.isabs(file_path):
             file_path = os.path.abspath(os.path.join(os.path.dirname(sys.argv[0]), file_path))
         with open(file_path, 'r') as env_file:
             env_file_lines = env_file.readlines()
     except FileNotFoundError:
-        print(f"dotenv: The {file_path} not found.")
-        sys.exit(1)
+        raise FileNotFoundError(f"The {file_path} not found!")
 
     env_consts = {}
 
@@ -29,8 +28,7 @@ def get_env(const_name, file_path=".env"):
     try:
         config_var = env_consts[const_name]
     except KeyError:
-        print(f"dotenv: The constant you specified is not contained in the {file_path}.")
-        sys.exit(1)
+        raise KeyError(f"The constant you specified is not contained in the {file_path}.")
     return config_var
 
 
