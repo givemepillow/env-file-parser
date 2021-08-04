@@ -9,7 +9,7 @@ __all__ = ['get_env']
 def get_env(*const_names: str, file_path=".env"):
     try:
         if not os.path.isabs(file_path):
-            file_path = os.path.abspath(os.getcwd() + '/' + file_path)
+            file_path = os.path.abspath(os.path.join(os.path.dirname(sys.argv[0]), file_path))
         with open(file_path, 'r') as env_file:
             env_file_lines = env_file.readlines()
     except FileNotFoundError:
