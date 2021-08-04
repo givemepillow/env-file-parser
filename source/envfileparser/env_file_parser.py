@@ -1,11 +1,12 @@
 import os
 import sys
+
 from .type_checker import is_int
 
 __all__ = ['get_env']
 
 
-def get_env(const_name: str, file_path=".env"):
+def get_env(*const_names: str, file_path=".env"):
     try:
         if not os.path.isabs(file_path):
             file_path = os.path.abspath(os.path.join(os.path.dirname(sys.argv[0]), file_path))
@@ -15,6 +16,7 @@ def get_env(const_name: str, file_path=".env"):
         raise FileNotFoundError(f"The {file_path} not found!")
 
     env_consts = {}
+    config_vars = []
 
     for line in env_file_lines:
         equal_index = line.index('=')
@@ -26,10 +28,14 @@ def get_env(const_name: str, file_path=".env"):
         key = line[0:equal_index].strip()
         env_consts[key] = value
     try:
-        config_var = env_consts[const_name]
+        for name in const_names:
+            config_vars.append(env_consts[name])
     except KeyError:
         raise KeyError(f"The constant you specified is not contained in the {file_path}.")
-    return config_var
+    if len(config_vars) == 1:
+        return config_vars[0]
+    else:
+        return config_vars
 
 
 if __name__ == "__main__":
