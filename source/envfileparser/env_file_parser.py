@@ -13,7 +13,6 @@ def read_env(file_path):
                 file_path = os.path.abspath(os.getcwd() + '/' + file_path)
             else:
                 file_path = os.path.abspath(os.path.join(os.path.dirname(sys.argv[0]), file_path))
-
         with open(file_path, 'r') as env_file:
             env_file_lines = env_file.readlines()
     except FileNotFoundError:
@@ -60,4 +59,4 @@ def get_envs(*var_names: str, file_path=".env"):
 
 
 if __name__ == "__main__":
-    print("This is python env file parser by Kirill Lapushinskiy.")
+    pass
