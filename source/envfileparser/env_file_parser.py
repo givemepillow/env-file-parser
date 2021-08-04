@@ -33,4 +33,4 @@ def get_env(const_name: str, file_path=".env"):
 
 
 if __name__ == "__main__":
-    print("This is python config file parser by Kirill Lapushinskiy.")
+    print("This is python env file parser by Kirill Lapushinskiy.")
