@@ -1,21 +1,27 @@
 import os
 import sys
+
 from .type_checker import is_int
 
 __all__ = ['get_env']
 
 
-def get_env(const_name, file_path=".env"):
+def get_env(*const_names: str, file_path=".env"):
     try:
         if not os.path.isabs(file_path):
-            file_path = os.path.abspath(os.path.join(os.path.dirname(sys.argv[0]), file_path))
+            if sys.platform == "win32":
+                file_path = os.path.abspath(os.getcwd() + '/' + file_path)
+            else:
+                file_path = os.path.abspath(os.path.join(os.path.dirname(sys.argv[0]), file_path))
+
         with open(file_path, 'r') as env_file:
             env_file_lines = env_file.readlines()
     except FileNotFoundError:
-        print(f"envfileparser: The {file_path} not found.")
-        sys.exit(1)
+        raise FileNotFoundError(f"The {file_path} not found!")
+
 
     env_consts = {}
+    config_vars = []
 
     for line in env_file_lines:
         equal_index = line.index('=')
@@ -27,12 +33,16 @@ def get_env(const_name, file_path=".env"):
         key = line[0:equal_index].strip()
         env_consts[key] = value
     try:
-        config_var = env_consts[const_name]
+        for name in const_names:
+            config_vars.append(env_consts[name])
     except KeyError:
-        print(f"envfileparser: The constant you specified is not contained in the {file_path}.")
-        sys.exit(1)
-    return config_var
+        raise KeyError(f"The constant you specified is not contained in the {file_path}.")
+    if len(config_vars) == 1:
+        return config_vars[0]
+    else:
+        return config_vars
+
 
 
 if __name__ == "__main__":
-    print("This is python config file parser by Kirill Lapushinskiy.")
+    print("This is python env file parser by Kirill Lapushinskiy.")
