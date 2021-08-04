@@ -19,6 +19,7 @@ def get_env(*const_names: str, file_path=".env"):
     except FileNotFoundError:
         raise FileNotFoundError(f"The {file_path} not found!")
 
+
     env_consts = {}
     config_vars = []
 
@@ -40,6 +41,7 @@ def get_env(*const_names: str, file_path=".env"):
         return config_vars[0]
     else:
         return config_vars
+
 
 
 if __name__ == "__main__":
