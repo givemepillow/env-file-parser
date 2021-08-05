@@ -37,9 +37,7 @@ def parse_env(env_file_lines):
     for line in env_file_lines:
         equal_index = line.index('=')
         value = line[equal_index + 1::].strip()
-        if is_int(value):
-            value = int(value)
-        elif value[0] == value[-1] and value[0] in ('''"''', """'"""):
+        if value[0] == value[-1] and value[0] in ('''"''', """'"""):
             value = value[1:len(value) - 1]
         key = line[0:equal_index].strip()
         env_vars[key] = value
