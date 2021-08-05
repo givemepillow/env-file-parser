@@ -33,14 +33,27 @@ def read_env(file_path: str) -> list:
 
 
 def parse_env(env_file_lines: list) -> dict:
+    """A function that extracts a variable from a list of strings.
+
+    Each line from the list is divided by the first equal sign.
+    The left part is taken for the variable name,
+    and the right part is taken for the value.
+    The value will always be stored as a string.
+
+    :param env_file_lines: list of lines
+    :type env_file_lines: list
+    :return: dict var name - var value
+    """
     env_vars = {}
     for line in env_file_lines:
         equal_index = line.index('=')
         value = line[equal_index + 1::].strip()
+        # Remove the quotation marks, if there are any.
         if value[0] == value[-1] and value[0] in ('''"''', """'"""):
             value = value[1:len(value) - 1]
         key = line[0:equal_index].strip()
         env_vars[key] = value
+
     return env_vars
 
 
