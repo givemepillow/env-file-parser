@@ -77,6 +77,6 @@ envfile#parser
 ```
 ___
 **New version ``0.0.6``:** 
--[x] Added support for comments.
--[x] Skipping empty lines.
--[x] Skipping lines without a character `"="`.
+- Added support for comments.
+- Skipping empty lines.
+- Skipping lines without a character `"="`.
