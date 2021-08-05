@@ -72,13 +72,13 @@ def get_envs(*var_names: str, file_path=".env") -> list:
     var_list = []
     env_file_lines = read_env(file_path)
     env_vars = parse_env(env_file_lines)
-    var = None
+    var_from_line = None
     try:
         for name in var_names:
-            var = env_vars[name]
-            var_list.append(var)
+            var_from_line = env_vars[name]
+            var_list.append(var_from_line)
     except KeyError:
-        raise KeyError(f"{var} is not found in {file_path}.")
+        raise KeyError(f"{var_from_line} is not found in {file_path}.")
     return var_list
 
 
