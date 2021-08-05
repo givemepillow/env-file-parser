@@ -6,7 +6,7 @@ from .type_checker import is_int
 __all__ = ['get_env', 'get_envs']
 
 
-def read_env(file_path):
+def read_env(file_path: str) -> list:
     """
     This function is intended for use inside the package.
     As a parameter, it takes a string - the path to the file
@@ -32,7 +32,7 @@ def read_env(file_path):
     return env_file_lines
 
 
-def parse_env(env_file_lines):
+def parse_env(env_file_lines: list) -> dict:
     env_vars = {}
     for line in env_file_lines:
         equal_index = line.index('=')
@@ -44,7 +44,7 @@ def parse_env(env_file_lines):
     return env_vars
 
 
-def get_env(var_name: str, file_path=".env"):
+def get_env(var_name: str, file_path=".env") -> str:
     env_file_lines = read_env(file_path)
     env_vars = parse_env(env_file_lines)
     try:
@@ -54,7 +54,7 @@ def get_env(var_name: str, file_path=".env"):
     return var
 
 
-def get_envs(*var_names: str, file_path=".env"):
+def get_envs(*var_names: str, file_path=".env") -> list:
     var_list = []
     env_file_lines = read_env(file_path)
     env_vars = parse_env(env_file_lines)
