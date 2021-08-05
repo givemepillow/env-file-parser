@@ -59,22 +59,34 @@ def parse_env(env_file_lines: list) -> dict:
 
 
 def get_env(var_name: str, file_path=".env") -> str:
+    """A function that returns value of the specified variables as a string.
+
+    The var name is passed to the function as a string.
+    and a named parameter - the path to the file with a default value.
+    String value of found variable is returned - otherwise an exception is thrown.
+
+    :param var_name: name of extracted variable
+    :param file_path: the string is the path to the file, it has a default value
+    :return: value of extracted var as a string
+    """
     env_file_lines = read_env(file_path)
     env_vars = parse_env(env_file_lines)
+
     try:
         var = env_vars[var_name]
     except KeyError:
         raise KeyError(f"{var_name} is not found in {file_path}.")
+
     return var
 
 
 def get_envs(*var_names: str, file_path=".env") -> list:
     """A function that returns a list of the values of the specified variables.
 
-    The file names are passed to the function as a sequence
+    The var names are passed to the function as a sequence
     and a named parameter - the path to the file with a default value.
     A list of values of all the specified variables is
-    returned-otherwise an exception is thrown.
+    returned - otherwise an exception is thrown.
 
     :param var_names: list of names of extracted variables
     :param file_path: the string is the path to the file, it has a default value
