@@ -50,7 +50,7 @@ def parse_env(env_file_lines: list) -> dict:
     env_vars = {}
     for line in env_file_lines:
         line = line.strip()
-        if len(line) == 0 or line[0] == '#':
+        if len(line) == 0 or line[0] == '#' or '=' not in line:
             continue
 
         equal_index = line.index('=')
