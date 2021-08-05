@@ -1,9 +1,5 @@
 import os
-import sys
 import unittest
-
-# accessing to the parent directory
-sys.path.append(os.path.dirname(os.getcwd()))
 
 from source import get_env, get_envs
 
@@ -20,7 +16,7 @@ class TestGetEnv(unittest.TestCase):
 
         with open('.env.comment2', "w") as file:
             file.writelines(['''CONST="abc-#123"\n\n''',
-                                "# comment\n", "NUMBER = 198#comment"])
+                             "# comment\n", "NUMBER = 198#comment"])
 
         with open('../.env', "w") as file:
             file.writelines(['''CONST="abc-123"\n''', "NUMBER = 198"])
