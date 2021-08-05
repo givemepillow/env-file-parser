@@ -18,7 +18,7 @@ class TestGetEnv(unittest.TestCase):
                              "# comment\n", "NUMBER = 198"])
 
         with open('.env.comment2', "w") as file:
-            file.writelines(['''CONST="abc-#123"\n''',
+            file.writelines(['''CONST="abc-#123"\n\n''',
                                 "# comment\n", "NUMBER = 198#comment"])
 
         with open('../.env', "w") as file:
