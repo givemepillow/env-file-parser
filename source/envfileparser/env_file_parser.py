@@ -1,8 +1,6 @@
 import os
 import sys
 
-from .type_checker import is_int
-
 __all__ = ['get_env', 'get_envs']
 
 
