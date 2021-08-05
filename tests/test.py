@@ -1,5 +1,9 @@
 import os
+import sys
 import unittest
+
+# accessing to the parent directory
+sys.path.append(os.path.dirname(os.getcwd()))
 
 from source import get_env, get_envs
 
@@ -27,6 +31,14 @@ class TestGetEnv(unittest.TestCase):
         self.assertEqual(get_env('NUMBER', file_path=f"{os.getcwd()}/.env"), 198)
         self.assertEqual(get_env('NUMBER', file_path=f"{os.getcwd()}/.env.conf"), -78)
 
+    def test_key_error(self):
+        with self.assertRaises(KeyError):
+            get_env('NUM', file_path=f"{os.getcwd()}/.env")
+
+    def test_file_not_found_error(self):
+        with self.assertRaises(FileNotFoundError):
+            get_env('NUM', file_path=f"{os.getcwd()}/.env.env")
+
     def tearDown(self):
         os.remove(f"{os.getcwd()}/.env")
         os.remove(f"{os.getcwd()}/.env.conf")
@@ -48,6 +60,14 @@ class TestGetEnvs(unittest.TestCase):
     def test_multi_number_vars(self):
         self.assertEqual(get_envs('NUM1', 'NUM2', 'NUM3', file_path=f"{os.getcwd()}/.env.multi2"),
                          [-123, 118, 3246])
+
+    def test_multi_key_error(self):
+        with self.assertRaises(KeyError):
+            get_envs('NUM', 'NUM2', 'NUM3', file_path=f"{os.getcwd()}/.env.multi2")
+
+    def test_file_not_found_error(self):
+        with self.assertRaises(FileNotFoundError):
+            get_envs('NUM', file_path=f"{os.getcwd()}/.env.env")
 
     def tearDown(self):
         os.remove(f"{os.getcwd()}/.env.multi1")
