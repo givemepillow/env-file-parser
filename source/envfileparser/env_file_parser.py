@@ -39,6 +39,8 @@ def parse_env(env_file_lines: list) -> dict:
     Each line from the list is divided by the first equal sign.
     The left part is taken for the variable name,
     and the right part is taken for the value.
+    Empty lines and lines starting with " # " are skipped.
+    Comments to the right of the code are deleted.
     The value will always be stored as a string.
 
     :param env_file_lines: list of lines
