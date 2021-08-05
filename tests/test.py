@@ -60,10 +60,10 @@ class TestGetEnv(unittest.TestCase):
 class TestGetEnvs(unittest.TestCase):
     def setUp(self):
         with open('.env.multi1', "w") as file:
-            file.writelines(['''STR1="abc-123"\n''', "STR2 = mixer\n", '''STR3="3246gt8456$%$^%"\n'''])
+            file.writelines(['''STR1="abc-123"\n\n''', "STR2 = mixer\n\n\n", '''STR3="3246gt8456$%$^%"\n'''])
 
         with open('.env.multi2', "w") as file:
-            file.writelines(['''NUM1=-123\n''', "NUM2 = 118\n", '''NUM3=3246\n'''])
+            file.writelines(['''NUM1=-123\n\n''', "NUM2 = 118\n", '''NUM3=3246\n'''])
 
     def test_multi_vars(self):
         self.assertEqual(get_envs('STR1', 'STR2', 'STR3', file_path=f"{os.getcwd()}/.env.multi1"),
