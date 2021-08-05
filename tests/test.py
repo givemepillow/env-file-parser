@@ -23,13 +23,11 @@ class TestGetEnv(unittest.TestCase):
         self.assertEqual(get_env('CONST', file_path=f"{os.getcwd()}/.env"), 'abc-123')
         self.assertEqual(get_env('CONST', file_path=f"{os.getcwd()}/.env.conf"), 'adadsaskdjald')
 
-    def test_string_vars_relative_path(self):
+    def test_vars_relative_path(self):
         self.assertEqual(get_env('CONST', file_path=".env"), 'abc-123')
         self.assertEqual(get_env('CONST', file_path="../.env"), 'abc-123')
-
-    def test_numbers_vars(self):
-        self.assertEqual(get_env('NUMBER', file_path=f"{os.getcwd()}/.env"), 198)
-        self.assertEqual(get_env('NUMBER', file_path=f"{os.getcwd()}/.env.conf"), -78)
+        self.assertEqual(get_env('NUMBER', file_path=f"{os.getcwd()}/.env"), '198')
+        self.assertEqual(get_env('NUMBER', file_path=f"{os.getcwd()}/.env.conf"), '-78')
 
     def test_key_error(self):
         with self.assertRaises(KeyError):
@@ -53,13 +51,11 @@ class TestGetEnvs(unittest.TestCase):
         with open('.env.multi2', "w") as file:
             file.writelines(['''NUM1=-123\n''', "NUM2 = 118\n", '''NUM3=3246\n'''])
 
-    def test_multi_string_vars(self):
+    def test_multi_vars(self):
         self.assertEqual(get_envs('STR1', 'STR2', 'STR3', file_path=f"{os.getcwd()}/.env.multi1"),
                          ['abc-123', 'mixer', '3246gt8456$%$^%'])
-
-    def test_multi_number_vars(self):
         self.assertEqual(get_envs('NUM1', 'NUM2', 'NUM3', file_path=f"{os.getcwd()}/.env.multi2"),
-                         [-123, 118, 3246])
+                         ['-123', '118', '3246'])
 
     def test_multi_key_error(self):
         with self.assertRaises(KeyError):
