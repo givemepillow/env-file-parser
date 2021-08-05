@@ -52,14 +52,17 @@ def parse_env(env_file_lines: list) -> dict:
         line = line.strip()
         if len(line) == 0 or line[0] == '#':
             continue
+
         equal_index = line.index('=')
         value = line[equal_index + 1::].strip()
+
         if '#' in value:
             if value[0] in ("'", '''"'''):
                 if value[::-1].index(value[0]) > value.index('#'):
                     value = value[0:value.index('#')]
             else:
                 value = value[0:value.index('#')]
+
         # Remove the quotation marks, if there are any.
         if value[0] == value[-1] and value[0] in ('''"''', """'"""):
             value = value[1:len(value) - 1]
