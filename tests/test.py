@@ -11,7 +11,8 @@ from source import get_env, get_envs
 class TestGetEnv(unittest.TestCase):
     def setUp(self):
         with open('.env', "w") as file:
-            file.writelines(['''CONST="abc-123"\n''', "NUMBER = 198"])
+            file.writelines(['''CONST="abc-123"\n''',
+                             '''"abc-123"\n''', "NUMBER = 198"])
 
         with open('.env.comment1', "w") as file:
             file.writelines(['''CONST="abc-123"\n''',
