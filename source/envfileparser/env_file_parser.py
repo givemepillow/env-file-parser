@@ -47,7 +47,8 @@ def parse_env(env_file_lines: list) -> dict:
     """
     env_vars = {}
     for line in env_file_lines:
-        if line.strip()[0] == '#':
+        line = line.strip()
+        if len(line) == 0 or line[0] == '#':
             continue
         equal_index = line.index('=')
         value = line[equal_index + 1::].strip()
