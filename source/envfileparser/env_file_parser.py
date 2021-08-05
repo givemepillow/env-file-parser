@@ -72,8 +72,8 @@ def get_envs(*var_names: str, file_path=".env") -> list:
     var_list = []
     env_file_lines = read_env(file_path)
     env_vars = parse_env(env_file_lines)
+    var = None
     try:
-        var = None
         for name in var_names:
             var = env_vars[name]
             var_list.append(var)
