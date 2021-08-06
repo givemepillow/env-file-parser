@@ -24,15 +24,24 @@ def parse_env(env_file_lines: list) -> dict:
 
         if '#' in value:
             if value[0] in ("'", '''"'''):
-                if value[::-1].index(value[0]) > value.index('#'):
-                    value = value[0:value.index('#')]
+                last_quote_index = value.index(value[0])
+                for i, c in enumerate(value):
+                    if i > last_quote_index and c == value[0]:
+                        last_quote_index = i
+                sharp_index = value.index('#')
+                for i, c in enumerate(value):
+                    if i > last_quote_index and c == '#':
+                        sharp_index = i
+                        break
+                if last_quote_index < sharp_index:
+                    value = value[0:sharp_index].strip()
             else:
-                value = value[0:value.index('#')]
+                value = value[0:value.index('#')].strip()
 
         # Remove the quotation marks, if there are any.
         if value[0] == value[-1] and value[0] in ('''"''', """'"""):
             value = value[1:len(value) - 1]
         key = line[0:equal_index].strip()
-        env_vars[key] = value
+        env_vars[key] = value.strip()
 
     return env_vars
