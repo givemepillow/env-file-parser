@@ -30,6 +30,7 @@ def parse_env(env_file_lines: list) -> dict:
                 for i, c in enumerate(value):
                     if i > last_quote_index and c == value[0]:
                         last_quote_index = i
+                        break
                 # Search for the first '#' character after the closing quotation mark.
                 sharp_index = value.index('#')
                 for i, c in enumerate(value):
