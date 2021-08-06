@@ -22,7 +22,7 @@ def get_env_from_file(*var_names: str, file_path=".env"):
         for for multiple var names - list of values
     """
     var_names_count = len(var_names)
-    if var_names_count is 1:
+    if var_names_count == 1:
         return get_env(var_names[0], file_path=file_path)
     elif var_names_count > 1:
         return get_envs(*var_names, file_path=file_path)
