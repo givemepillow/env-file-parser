@@ -1,4 +1,6 @@
-from .get_env_from_file import get_env_from_file
+from .parse_env import line_parser
+from .read_env import read_env
+
 
 def get_env(var_name: str, file_path=".env") -> str:
     """A function that returns value of the specified variables as a string.
@@ -6,16 +8,20 @@ def get_env(var_name: str, file_path=".env") -> str:
 
     The var name is passed to the function as a string.
     and a named parameter - the path to the file with a default value.
-    String value of found variable is returned - otherwise an exception is thrown.
+    String value of found variable is returned - otherwise return empty string.
 
     :param var_name: name of extracted variable
     :param file_path: the string is the path to the file, it has a default value
     :return: value of extracted var as a string
     """
+    empty_value = ''
+    env_file_lines = read_env(file_path=file_path)
+    for line in env_file_lines:
+        line = line.strip()
+        if len(line) == 0 or line[0] == '#' or '=' not in line:
+            continue
+        key, parsed_value = line_parser(line)
+        if key == var_name:
+            return parsed_value
 
-    try:
-        var = get_env_from_file(file_path=file_path)[var_name]
-    except KeyError:
-        raise KeyError(f"{var_name} is not found in {file_path}.")
-
-    return var
+    return empty_value
