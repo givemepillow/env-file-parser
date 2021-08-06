@@ -2,6 +2,17 @@ from .parse_env import line_parser
 from .read_env import read_env
 
 
+def get_value_from_file(key: str, file_path=".env") -> str:
+    """A function that returns value of the specified variables as a string.
+    Wrapper for the old get_env.
+
+    :param key: name of extracted variable
+    :param file_path: the string is the path to the file, it has a default value
+    :return: value of extracted var as a string
+    """
+    return get_env(key, file_path=file_path)
+
+
 def get_env(var_name: str, file_path=".env") -> str:
     """A function that returns value of the specified variables as a string.
     Deprecated! Left for compatibility support.

@@ -1,10 +1,10 @@
 import os
 import unittest
 
-from source import get_env
+from source import get_env, get_value_from_file
 
 
-class TestGetEnv(unittest.TestCase):
+class TestGetValueFromFile(unittest.TestCase):
     def setUp(self):
         with open('.env.empty', "w") as file:
             file.writelines("")
@@ -30,22 +30,22 @@ class TestGetEnv(unittest.TestCase):
             )
 
     def test_string_vars(self):
-        self.assertEqual(get_env('CONST', file_path=".env"), 'abc-123')
-        self.assertEqual(get_env('CONST', file_path=".env.conf"), 'aa')
-        self.assertEqual(get_env('Q', file_path=".env"), '"')
+        self.assertEqual(get_value_from_file('CONST', file_path=".env"), 'abc-123')
+        self.assertEqual(get_value_from_file('CONST', file_path=".env.conf"), 'aa')
+        self.assertEqual(get_value_from_file('Q', file_path=".env"), '"')
 
     def test_vars_relative_path(self):
-        self.assertEqual(get_env('CONST', file_path="../.env"), 'rel')
-        self.assertEqual(get_env('NUMBER', file_path="../.env"), '198')
+        self.assertEqual(get_value_from_file('CONST', file_path="../.env"), 'rel')
+        self.assertEqual(get_value_from_file('NUMBER', file_path="../.env"), '198')
 
     def test_var_not_found(self):
-        self.assertEqual(get_env('NOT_REAL', file_path="../.env"), '')
-        self.assertEqual(get_env('UNREAL', file_path=".env"), '')
-        self.assertEqual(get_env('CONST', file_path=".env.empty"), '')
+        self.assertEqual(get_value_from_file('NOT_REAL', file_path="../.env"), '')
+        self.assertEqual(get_value_from_file('UNREAL', file_path=".env"), '')
+        self.assertEqual(get_value_from_file('CONST', file_path=".env.empty"), '')
 
     def test_file_not_found_error(self):
         with self.assertRaises(FileNotFoundError):
-            get_env('NUM', file_path=".env.not")
+            get_value_from_file('NUM', file_path=".env.not")
 
     def tearDown(self):
         os.remove(".env")
