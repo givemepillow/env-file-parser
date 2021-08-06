@@ -7,7 +7,7 @@ from source import get_env, get_envs
 class TestGetEnv(unittest.TestCase):
     def setUp(self):
         with open('.env', "w") as file:
-            file.writelines(['''CONST="abc-123"\n''',
+            file.writelines(['''CONST=" abc-123     "\n''',
                              '''"abc-123"\n''', "NUMBER = 198"])
 
         with open('.env.comment1', "w") as file:
@@ -17,6 +17,11 @@ class TestGetEnv(unittest.TestCase):
         with open('.env.comment2', "w") as file:
             file.writelines(['''CONST="abc-#123"\n\n''',
                              "# comment\n", "NUMBER = 198#comment"])
+
+        with open('.env.comment3', "w") as file:
+            file.writelines(['''CONST1="abc-#123"# this is const\n\n''',
+                             '''CONST2 = "abc#-#123" # the ### const\n\n''',
+                             "# comment\n\n", "NUMBER = 198#comment # for num"])
 
         with open('../.env', "w") as file:
             file.writelines(['''CONST="abc-123"\n''', "NUMBER = 198"])
@@ -37,6 +42,9 @@ class TestGetEnv(unittest.TestCase):
         self.assertEqual(get_env('NUMBER', file_path=".env.comment1"), '198')
         self.assertEqual(get_env('CONST', file_path=".env.comment2"), 'abc-#123')
         self.assertEqual(get_env('NUMBER', file_path=".env.comment2"), '198')
+        self.assertEqual(get_env('CONST1', file_path=".env.comment3"), 'abc-#123')
+        self.assertEqual(get_env('NUMBER', file_path=".env.comment3"), '198')
+        self.assertEqual(get_env('CONST2', file_path=".env.comment3"), 'abc#-#123')
 
     def test_key_error(self):
         with self.assertRaises(KeyError):
@@ -50,6 +58,7 @@ class TestGetEnv(unittest.TestCase):
         os.remove(f"{os.getcwd()}/.env")
         os.remove(f"{os.getcwd()}/.env.comment1")
         os.remove(f"{os.getcwd()}/.env.comment2")
+        os.remove(f"{os.getcwd()}/.env.comment3")
         os.remove(f"{os.getcwd()}/.env.conf")
         os.remove("../.env")
 
