@@ -38,10 +38,10 @@ class TestGetEnv(unittest.TestCase):
         self.assertEqual(get_env('CONST', file_path="../.env"), 'rel')
         self.assertEqual(get_env('NUMBER', file_path="../.env"), '198')
 
-    def test_key_error(self):
-        with self.assertRaises(KeyError):
-            get_env('NUM', file_path=".env")
-            get_env('CONST', file_path=".env.empty")
+    def test_var_not_found(self):
+        self.assertEqual(get_env('NOT_REAL', file_path="../.env"), '')
+        self.assertEqual(get_env('UNREAL', file_path=".env"), '')
+        self.assertEqual(get_env('CONST', file_path=".env.empty"), '')
 
     def test_file_not_found_error(self):
         with self.assertRaises(FileNotFoundError):
