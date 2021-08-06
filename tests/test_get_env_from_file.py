@@ -7,7 +7,9 @@ from source import get_env_from_file
 class TestGetEnvFromFile(unittest.TestCase):
     def setUp(self):
         with open('.env1', "w") as file:
-            file.writelines(['''STR1="abc-123"\n\n''', "STR2 = mixer\n\n\n", '''STR3="3246gt8456$%$^%" # hello\n'''])
+            file.writelines(['''STR1="abc-123"\n\n''',
+                             "STR2 = mixer\n\n\n",
+                             '''STR3="3246gt8456$%$^%" ## STR1="abc#123\n'''])
 
         with open('.env.empty', "w") as file:
             file.writelines("")
