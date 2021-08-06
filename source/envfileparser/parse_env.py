@@ -24,17 +24,17 @@ def parse_env(env_file_lines: list) -> dict:
 
         if '#' in value:
             # If values start from quote.
-            if value[0] in ("'", '''"'''):
+            if value[0] in ("'", '"'):
                 # Finding the index of the closing quotation mark.
                 last_quote_index = value.index(value[0])
                 for i, c in enumerate(value):
-                    if i > last_quote_index and c == value[0]:
+                    if c == value[0] and i > last_quote_index:
                         last_quote_index = i
                         break
                 # Search for the first '#' character after the closing quotation mark.
                 sharp_index = value.index('#')
                 for i, c in enumerate(value):
-                    if i > last_quote_index and c == '#':
+                    if c == '#' and i > last_quote_index:
                         sharp_index = i
                         break
                 # Deleting a comment if the ' # ' character is placed after the closing quotation marks.
@@ -45,7 +45,7 @@ def parse_env(env_file_lines: list) -> dict:
                 value = value[0:value.index('#')].strip()
 
         # Removing quotes, but only if there is an opening and closing one.
-        if value[0] == value[-1] and value[0] in ('''"''', """'"""):
+        if value[0] in ('"', "'") and value[0] == value[-1]:
             value = value.removeprefix(value[0]).removesuffix(value[-1])
 
         key = line[0:equal_index].strip()
