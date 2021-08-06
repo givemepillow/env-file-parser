@@ -38,7 +38,7 @@ This package is as simple as possible to get variables from .env files or files 
 > the corresponding exceptions are thrown.
 ## Getting started
 ___
-Install [envfileparser](https://pypi.org/project/envfileparser/) from [PyPi](https://pypi.org/) with pip: `pip install envfileparser`
+#### Install [envfileparser](https://pypi.org/project/envfileparser/) from [PyPi](https://pypi.org/) with pip: `pip install envfileparser`
 ### Usage example:
 The .env file:
 ```.env
