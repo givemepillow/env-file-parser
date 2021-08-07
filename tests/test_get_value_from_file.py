@@ -13,6 +13,7 @@ class TestGetValueFromFile(unittest.TestCase):
             file.write('''\n'''
                        '''# The env file\n'''
                        '''CONST = "abc-123" # comment for const\n'''
+                       "THE_ _VAR = 'not correct'\n"
                        '''NUMBER = -12345 # 'this is number' \n'''
                        """Q = '"' # 'text' \n"""
                        )
@@ -38,14 +39,19 @@ class TestGetValueFromFile(unittest.TestCase):
         self.assertEqual(get_value_from_file('CONST', file_path="../.env"), 'rel')
         self.assertEqual(get_value_from_file('NUMBER', file_path="../.env"), '198')
 
-    def test_var_not_found(self):
-        self.assertEqual(get_value_from_file('NOT_REAL', file_path="../.env"), '')
-        self.assertEqual(get_value_from_file('UNREAL', file_path=".env"), '')
-        self.assertEqual(get_value_from_file('CONST', file_path=".env.empty"), '')
+    def test_var_not_found_in_file(self):
+        with self.assertRaises(KeyError):
+            get_value_from_file('NOT_REAL', file_path="../.env")
+            get_value_from_file('UNREAL', file_path=".env")
+            get_value_from_file('CONST', file_path=".env.empty")
 
     def test_file_not_found_error(self):
         with self.assertRaises(FileNotFoundError):
             get_value_from_file('NUM', file_path=".env.not")
+
+    def test_not_correct_key(self):
+        with self.assertRaises(ValueError):
+            get_value_from_file('THE_ _VAR')
 
     def test_old_get_env(self):
         self.assertEqual(get_env('CONST', file_path=".env"), 'abc-123')
