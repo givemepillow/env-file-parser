@@ -26,6 +26,7 @@ def read_env(file_path: str) -> list:
         with open(file_path, 'r') as env_file:
             env_file_lines = env_file.readlines()
     except FileNotFoundError:
-        raise FileNotFoundError(f"The {file_path} not found!")
+        print(f"envfileparser: The {file_path} not found!")
+        raise
 
     return env_file_lines
