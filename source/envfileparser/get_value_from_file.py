@@ -1,27 +1,17 @@
-from .parse_env import line_parser
-from .read_env import read_env
+from .base.parser import line_parser
+from .base.reader import read_env
+
+__all__ = ['get_value_from_file', 'get_env']
 
 
 def get_value_from_file(key: str, file_path=".env") -> str:
     """A function that returns value of the specified variables as a string.
-    Wrapper for the old get_env.
-
-    :param key: name of extracted variable
-    :param file_path: the string is the path to the file, it has a default value
-    :return: value of extracted var as a string
-    """
-    return get_env(key, file_path=file_path)
-
-
-def get_env(var_name: str, file_path=".env") -> str:
-    """A function that returns value of the specified variables as a string.
-    Deprecated! Left for compatibility support.
 
     The var name is passed to the function as a string.
     and a named parameter - the path to the file with a default value.
     String value of found variable is returned - otherwise return empty string.
 
-    :param var_name: name of extracted variable
+    :param key: name of extracted variable
     :param file_path: the string is the path to the file, it has a default value
     :return: value of extracted var as a string
     """
@@ -31,8 +21,12 @@ def get_env(var_name: str, file_path=".env") -> str:
         line = line.strip()
         if len(line) == 0 or line[0] == '#' or '=' not in line:
             continue
-        key, parsed_value = line_parser(line)
-        if key == var_name:
+        parsed_key, parsed_value = line_parser(line)
+        if parsed_key == key:
             return parsed_value
 
     return empty_value
+
+
+# Deprecated! Left for compatibility support.
+get_env = get_value_from_file
