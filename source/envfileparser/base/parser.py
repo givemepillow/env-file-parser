@@ -1,7 +1,7 @@
-__all__ = ['parse_env', 'line_parser']
+__all__ = ['parser', 'line_parser']
 
 
-def parse_env(env_file_lines: list) -> dict:
+def parser(env_file_lines: list) -> dict:
     """A function that extracts a variable from a list of strings.
 
     Each line from the list is parsed bi line_parser()

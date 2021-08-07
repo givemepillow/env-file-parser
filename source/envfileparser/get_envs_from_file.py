@@ -1,4 +1,4 @@
-from .base.parser import parse_env
+from .base.parser import parser
 from .base.reader import read_env
 
 
@@ -14,5 +14,5 @@ def get_envs_from_file(file_path=".env") -> dict:
         if there no variables - empty dict
     """
     env_file_lines = read_env(file_path)
-    env_vars = parse_env(env_file_lines)
+    env_vars = parser(env_file_lines)
     return env_vars
