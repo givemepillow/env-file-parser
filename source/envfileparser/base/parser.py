@@ -20,6 +20,11 @@ def parse_env(env_file_lines: list) -> dict:
         if len(line) == 0 or line[0] == '#' or '=' not in line:
             continue
         key, value = line_parser(line)
+
+        # Not suitable for the name of the key.
+        if ' ' in key:
+            continue
+
         env_vars[key] = value
 
     return env_vars
