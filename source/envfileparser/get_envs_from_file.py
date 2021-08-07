@@ -1,5 +1,5 @@
-from .parse_env import parse_env
-from .read_env import read_env
+from .base.parser import parse_env
+from .base.reader import read_env
 
 
 def get_envs_from_file(file_path=".env") -> dict:
