@@ -15,17 +15,24 @@ def get_value_from_file(key: str, file_path=".env") -> str:
     :param file_path: the string is the path to the file, it has a default value
     :return: value of extracted var as a string
     """
-    empty_value = ''
+    if ' ' in key:
+        raise ValueError(f"envfileparser: The key {key} must not contain spaces.")
+    value = ''
     env_file_lines = read_env(file_path=file_path)
     for line in env_file_lines:
         line = line.strip()
         if len(line) == 0 or line[0] == '#' or '=' not in line:
             continue
         parsed_key, parsed_value = line_parser(line)
-        if parsed_key == key:
-            return parsed_value
+        if ' ' in parsed_key:
+            continue
+        elif parsed_key == key:
+            value = parsed_value
 
-    return empty_value
+    if value == '':
+        raise KeyError(f"envfileparser: The key \"{key}\" not found in {file_path}.")
+
+    return value
 
 
 # Deprecated! Left for compatibility support.
