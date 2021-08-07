@@ -47,6 +47,10 @@ class TestGetValueFromFile(unittest.TestCase):
         with self.assertRaises(FileNotFoundError):
             get_value_from_file('NUM', file_path=".env.not")
 
+    def test_old_get_env(self):
+        self.assertEqual(get_env('CONST', file_path=".env"), 'abc-123')
+        self.assertEqual(get_env('CONST', file_path=".env.conf"), 'aa')
+
     def tearDown(self):
         os.remove(".env")
         os.remove(".env.conf")
