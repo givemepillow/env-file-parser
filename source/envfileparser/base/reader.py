@@ -1,6 +1,8 @@
 import os
 import sys
 
+__all__ = ['read_env']
+
 
 def read_env(file_path: str) -> list:
     """A function that reads a file with variables.
