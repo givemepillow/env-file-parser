@@ -67,4 +67,6 @@ def line_parser(line: str) -> tuple[str, str]:
     if value[0] in ('"', "'") and value[0] == value[-1]:
         value = value.removeprefix(value[0]).removesuffix(value[-1])
 
-    return line[0:equal_index].strip(), value.strip()
+    key, value = line[0:equal_index].strip(), value.strip()
+
+    return key, value
