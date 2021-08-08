@@ -4,7 +4,7 @@ from .base.reader import read_env
 __all__ = ['get_value_from_file', 'get_env']
 
 
-def get_value_from_file(key: str, file_path=".env") -> str:
+def get_value_from_file(key: str, file_path: str =".env") -> str:
     """A function that returns value of the specified variables as a string.
 
     The var name is passed to the function as a string.
