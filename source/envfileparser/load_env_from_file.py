@@ -1,9 +1,9 @@
 import os
 
-from .get_envs_from_file import get_envs_from_file
+from .get_env_from_file import get_env_from_file
 
 
-def set_envs_from_file(key: str, *next_keys: str, file_path: str = ".env", override: bool = False) -> None:
+def load_env_from_file(key: str, *next_keys: str, file_path: str = ".env", override: bool = False) -> None:
     """Reads and analyzes the file, and then sets the found variables in the environment.
 
     The function accepts a variable number of keys,
@@ -15,7 +15,7 @@ def set_envs_from_file(key: str, *next_keys: str, file_path: str = ".env", overr
     :param override: bool: flag for overwriting environment variables
     :return: None
     """
-    file_vars = get_envs_from_file(file_path=file_path)
+    file_vars = get_env_from_file(file_path=file_path)
     for v in key, *next_keys:
         if override or os.environ.get(v, '__not_exists__') == '__not_exists__':
             os.environ[v] = file_vars[v]

@@ -2,7 +2,7 @@ from .base.parser import parser
 from .base.reader import read_env
 
 
-def get_envs_from_file(file_path: str = ".env") -> dict:
+def get_env_from_file(file_path: str = ".env") -> dict:
     """Unifying function.
 
     This function allows you to return dict with all values in file.

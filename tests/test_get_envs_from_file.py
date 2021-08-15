@@ -1,7 +1,7 @@
 import os
 import unittest
 
-from source import get_envs_from_file
+from source import get_env_from_file
 
 
 class TestGetEnvsFromFile(unittest.TestCase):
@@ -18,13 +18,13 @@ class TestGetEnvsFromFile(unittest.TestCase):
             file.writelines(['''NUM1=-123\n\n''', "NUM2 = 118\n", '''NUM3=3246\n'''])
 
     def test_var(self):
-        self.assertEqual(get_envs_from_file(file_path=".env1"),
+        self.assertEqual(get_env_from_file(file_path=".env1"),
                          {'STR1': 'abc-123', 'STR2': 'mixer', 'STR3': '3246gt8456$%$^%'})
-        self.assertEqual(get_envs_from_file(file_path=".env2"),
+        self.assertEqual(get_env_from_file(file_path=".env2"),
                          {'NUM1': '-123', 'NUM2': '118', 'NUM3': '3246'})
 
     def test_empty_file(self):
-        self.assertEqual(get_envs_from_file(file_path=".env.empty"), {})
+        self.assertEqual(get_env_from_file(file_path=".env.empty"), {})
 
     def tearDown(self):
         os.remove(".env1")

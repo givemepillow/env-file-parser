@@ -1,7 +1,7 @@
 import os
 import unittest
 
-from source import set_envs_from_file, get_env
+from source import load_env_from_file, get_env
 
 
 class TestGetEnvsFromFile(unittest.TestCase):
@@ -16,7 +16,7 @@ class TestGetEnvsFromFile(unittest.TestCase):
             )
 
     def test_set_vars(self):
-        set_envs_from_file('MY_VAR', 'MY_VAR_ONE', 'MY_VAR_TWO')
+        load_env_from_file('MY_VAR', 'MY_VAR_ONE', 'MY_VAR_TWO')
         self.assertTrue(get_env('MY_VAR', file_path=".env"), os.environ.get('MY_VAR'))
         self.assertTrue(get_env('MY_VAR', file_path=".env"), os.environ.get('MY_VAR_ONE'))
         self.assertTrue(get_env('MY_VAR', file_path=".env"), os.environ.get('MY_VAR_TWO'))
